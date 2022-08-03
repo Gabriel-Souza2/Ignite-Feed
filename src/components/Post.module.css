@@ -1,6 +1,7 @@
 .post {
     padding: 2.5rem;
     background-color: var(--gray-800);
+    margin-bottom: 2rem;
 }
 
 .header {
@@ -66,6 +67,7 @@
     border-top: 1px solid  var(--gray-600);
 
     padding-top: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .footer strong { 
@@ -81,10 +83,16 @@
 
     background-color: var(--gray-900);
     border-radius: 8px;
-    border: 1px solid var(--green-400);
+    border: none;
+    outline: none;
 
     color: var(--white);
     resize:none;
+}
+
+.footer textarea:focus {
+    border: 1px solid var(--green-400);;
+    outline: none;
 }
 
 .footer button[type='submit'] {
@@ -106,4 +114,14 @@
 .footer button[type='submit']:hover {
     background-color: var(--green-400);
     cursor: pointer;
+}
+
+.footer form div {
+    visibility: hidden;
+    max-height: 0;
+}
+
+.footer form:focus-within div {
+    visibility: visible;
+    max-height: none;
 }

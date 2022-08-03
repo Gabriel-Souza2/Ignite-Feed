@@ -1,14 +1,39 @@
+import { Comment, CommentProps as Comments } from './Comment';
 import style from './Post.module.css';
 
-export function Post() {
+
+export interface User {
+    id: string;
+    name: string;
+    bio: string;
+    img: string;
+}
+
+interface Post {
+    id: string;
+    message: string;
+    links?: string[];
+    hashtags?: string[]; 
+    comments?: Comments[];
+    published_at: string;
+}
+
+interface Props {
+    data: {
+        user: User;
+        post: Post;
+    }
+}
+
+export function Post({ data }: Props) {
     return (
         <article className={style.post}>
             <header className={style.header}>          
                 <div className={style.profile}>
-                    <img src="https://github.com/Gabriel-Souza2.png"/>
+                    <img src={data.user.img}/>
                     <div className={style.userInfo}>
-                        <strong>Gabriel Souza</strong>
-                        <span>Desenvolvedor React | React Native</span>
+                        <strong>{data.user.name}</strong>
+                        <span>{data.user.bio}</span>
                     </div>
                 </div>
 
@@ -16,22 +41,35 @@ export function Post() {
             </header>
 
             <div className={style.content}>
-                <p>Fala galeraa 👋</p>
-                <p>
-                    Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀
-                </p>
-                <p><a href='#'>👉 jane.design/doctorcare</a></p>
+                <p>{data.post.message}</p>
 
-                <a  href="#">#novoprojeto</a>  <a href="#">#nlw</a> <a href='#'>#rocketseat</a>
+                {
+                    data.post.links?.map((link, index) => {
+                        return <p key={index}><a href="#">{link}</a></p>
+                    })
+                }
+
+                {
+                    data.post.hashtags?.map((hashtag, index) => {
+                        return <a href="#" key={index}>{hashtag} </a>
+                    })
+                }
             </div>
 
-            <footer className={style.footer}>
+            <div className={style.footer}>
                 <strong>Deixe seu feedback</strong>
                 <form>
                     <textarea placeholder='Deixe seu comentario...' />
-                    <button type="submit">Publicar</button>
+                    <div>
+                        <button type="submit">Publicar</button>
+                    </div>
                 </form>
-            </footer>
+            </div>
+            {
+                data.post.comments?.map((data) => {
+                    return <Comment data={data} key={data.id} />
+                })
+            }
         </article>
     );
 }

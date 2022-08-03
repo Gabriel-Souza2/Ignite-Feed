@@ -5,6 +5,8 @@ import { Sidebar } from './components/Sidebar';
 
 import './global.css'
 
+import { data } from './utils/data.json';
+
 
 export function App() {
   return (
@@ -13,7 +15,14 @@ export function App() {
 
       <div className={style.wrapper}>
         <Sidebar />
-        <Post />
+        <div>
+
+          {
+            data.map((value, index) => {
+              return <Post key={value.post.id} data={value}/>
+            }) 
+          }
+        </div>
       </div>
     </div>
   );
